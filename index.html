@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="ms" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#d97706" />
+    <meta name="description" content="Aplikasi MAPeNS 2026 untuk Majlis Apresiasi Anugerah Pengurusan Sekolah PPD Kota Marudu." />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="MAPeNS 2026" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>MAPeNS 2026</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icons/icon.svg" />
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["DM Sans", "sans-serif"],
+              display: ["Playfair Display", "serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* ===========================
+   PREMIUM DARK MODE
+=========================== */
+
+.dark body{
+    background:#0f172a;
+    color:#e5e7eb;
+}
+
+/* Sidebar */
+.dark nav{
+    background:#111827;
+    border-color:#1f2937;
+}
+
+/* Semua Kad */
+.dark .premium-card,
+.dark .glass,
+.dark .rounded-2xl.bg-white,
+.dark .rounded-xl.bg-white{
+    background:#1e293b !important;
+    border:1px solid rgba(255,255,255,.06);
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.45),
+        inset 0 1px rgba(255,255,255,.03);
+}
+
+/* Hover Premium */
+.dark .premium-card:hover{
+    transform:translateY(-8px);
+    border-color:#fbbf24;
+    box-shadow:
+        0 0 18px rgba(251,191,36,.18),
+        0 20px 45px rgba(0,0,0,.60);
+}
+
+/* Tajuk */
+.dark h1,
+.dark h2,
+.dark h3{
+    color:#ffffff;
+}
+
+/* Teks */
+.dark p,
+.dark td,
+.dark th,
+.dark span{
+    color:#cbd5e1;
+}
+
+/* Jadual */
+.dark table{
+    background:#1e293b;
+}
+
+.dark thead{
+    background:#111827;
+}
+
+.dark tbody tr{
+    border-color:#334155;
+}
+
+.dark tbody tr:hover{
+    background:#263548;
+}
+
+/* Navigation */
+.dark .nav-item{
+    color:#cbd5e1;
+}
+
+.dark .nav-item:hover{
+    background:#27364d;
+}
+
+.dark .nav-item.active{
+
+    background:linear-gradient(
+        135deg,
+        #d4af37,
+        #fbbf24,
+        #f59e0b
+    );
+
+    color:#111827;
+
+    box-shadow:
+        0 0 18px rgba(251,191,36,.45);
+
+}
+
+/* Countdown */
+.dark .glass{
+
+    background:rgba(30,41,59,.92);
+
+    border:1px solid rgba(251,191,36,.15);
+
+}
+
+/* Header Gradient */
+.dark header::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+        180deg,
+        rgba(15,23,42,.15),
+        rgba(15,23,42,.75),
+        rgba(15,23,42,.98)
+    );
+
+    pointer-events:none;
+
+}
+
+/* Icon Glow */
+.dark svg,
+.dark i[data-lucide]{
+
+    color:#fbbf24;
+
+    filter:
+        drop-shadow(0 0 5px rgba(251,191,36,.45))
+        drop-shadow(0 0 10px rgba(251,191,36,.25));
+
+}
+
+/* Butang */
+.dark button{
+
+    transition:.3s;
+
+}
+
+.dark button:hover{
+
+    box-shadow:
+        0 0 15px rgba(251,191,36,.35);
+
+}
+
+/* Footer */
+.dark footer{
+
+    background:#020617;
+
+    border-top:1px solid #1e293b;
+
+}
+    </style>
+  </head>
+  <body class="min-h-screen w-full bg-[#0f172a] text-slate-200">
+    <button id="menu-toggle" class="glass fixed left-4 top-4 z-50 rounded-lg bg-white/80 p-2 shadow-lg dark:bg-gray-800/80 md:hidden" aria-label="Buka menu">
+      <i data-lucide="menu" class="h-6 w-6 text-gray-700 dark:text-gray-200"></i>
+    </button>
+
+    <div id="overlay" class="fixed inset-0 z-30 hidden bg-black/40 md:hidden"></div>
+
+    <nav id="sidebar" class="sidebar fixed left-0 top-0 z-40 flex h-full flex-col overflow-y-auto border-r border-gray-200 bg-slate-800">
+      <div class="border-b border-gray-100 p-5 text-center dark:border-gray-800">
+
+    <!-- Logo PPD -->
+    <img
+        src="https://i.imgur.com/4EGUuTx.png"
+        alt="Logo PPD Kota Marudu"
+        class="mx-auto mb-3 h-20 w-20 rounded-full bg-white p-2 shadow-lg object-contain">
+
+    <h2 class="font-display text-[22px] font-bold text-[#92400e]">
+        MAPeNS
+    </h2>
+
+    <p class="mt-1 text-xs text-gray-500">
+        PPD Kota Marudu
+    </p>
+
+</div>
+
+      <div class="flex-1 space-y-1 p-3">
+        <button class="nav-item active flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium" data-section="dashboard">
+          <i data-lucide="layout-dashboard" class="h-4 w-4"></i><span>Dashboard</span>
+        </button>
+        <button class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-300" data-section="pengenalan">
+          <i data-lucide="book-open" class="h-4 w-4"></i><span>Pengenalan</span>
+        </button>
+        <button class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-300" data-section="garis-masa">
+          <i data-lucide="calendar" class="h-4 w-4"></i><span>Garis Masa</span>
+        </button>
+        <button class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-300" data-section="jawatankuasa">
+          <i data-lucide="users" class="h-4 w-4"></i><span>Jawatankuasa</span>
+        </button>
+        <button class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-300" data-section="pic">
+          <i data-lucide="user-check" class="h-4 w-4"></i><span>PIC Anugerah</span>
+        </button>
+        <button class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-300" data-section="kategori">
+          <i data-lucide="trophy" class="h-4 w-4"></i><span>Kategori Anugerah</span>
+        </button>
+        <button class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-300" data-section="muat-turun">
+          <i data-lucide="download" class="h-4 w-4"></i><span>Muat Turun</span>
+        </button>
+        <button class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-300" data-section="hebahan">
+          <i data-lucide="megaphone" class="h-4 w-4"></i><span>Hebahan</span>
+        </button>
+        <button class="nav-item flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-300" data-section="hubungi">
+          <i data-lucide="phone" class="h-4 w-4"></i><span>Hubungi Kami</span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="min-h-screen md:ml-[260px]">
+      <section id="sec-dashboard" class="app-section">
+        <header class="relative w-full overflow-hidden" style="min-height: 45vh">
+          <img src="https://images.pexels.com/photos/36801081/pexels-photo-36801081.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Barisan trofi emas untuk majlis anugerah" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/80"></div>
+          <div class="relative z-10 flex flex-col items-center justify-center px-6 py-12 text-center" style="min-height: 45vh">
+            <h1 class="font-display text-[32px] font-black text-white drop-shadow-2xl sm:text-[44px]">MAPeNS 2026</h1>
+            <p class="mt-2 text-lg tracking-wide text-white/90">Majlis Apresiasi Anugerah Pengurusan Sekolah</p>
+            <p class="mt-1 text-sm text-white/70">Pejabat Pendidikan Daerah Kota Marudu</p>
+
+            <div class="mt-8 flex gap-3 sm:gap-5">
+              <div class="glass min-w-[60px] rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-center">
+                <div id="cd-days" class="countdown-digit text-2xl font-bold text-white sm:text-3xl">--</div>
+                <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/60">Hari</div>
+              </div>
+              <div class="glass min-w-[60px] rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-center">
+                <div id="cd-hours" class="countdown-digit text-2xl font-bold text-white sm:text-3xl">--</div>
+                <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/60">Jam</div>
+              </div>
+              <div class="glass min-w-[60px] rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-center">
+                <div id="cd-mins" class="countdown-digit text-2xl font-bold text-white sm:text-3xl">--</div>
+                <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/60">Min</div>
+              </div>
+              <div class="glass min-w-[60px] rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-center">
+                <div id="cd-secs" class="countdown-digit text-2xl font-bold text-white sm:text-3xl">--</div>
+                <div class="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/60">Saat</div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="relative z-10 mx-auto -mt-8 grid max-w-5xl grid-cols-2 gap-4 p-6 lg:grid-cols-4">
+          <div class="premium-card glass rounded-2xl bg-white/90 p-5 text-center shadow-lg dark:bg-gray-800/90">
+            <div class="text-2xl font-bold text-amber-600">32</div>
+            <p class="mt-1 text-sm text-gray-500">Kategori Anugerah</p>
+          </div>
+          <div class="premium-card glass rounded-2xl bg-white/90 p-5 text-center shadow-lg dark:bg-gray-800/90">
+            <div class="text-2xl font-bold text-blue-600">0</div>
+            <p class="mt-1 text-sm text-gray-500">Pencalonan Diterima</p>
+          </div>
+          <div class="premium-card glass rounded-2xl bg-white/90 p-5 text-center shadow-lg dark:bg-gray-800/90">
+            <div class="text-2xl font-bold text-emerald-600">5</div>
+            <p class="mt-1 text-sm text-gray-500">Sekolah Terlibat</p>
+          </div>
+          <div class="premium-card glass rounded-2xl bg-white/90 p-5 text-center shadow-lg dark:bg-gray-800/90">
+            <div class="text-2xl font-bold text-pink-600">5</div>
+            <p class="mt-1 text-sm text-gray-500">Jawatankuasa</p>
+          </div>
+        </div>
+
+        <div class="mx-auto max-w-5xl px-6 pb-12 pt-6">
+          <div class="rounded-2xl border-l-4 border-amber-500 bg-amber-50 p-6 dark:bg-amber-900/20">
+            <h3 class="flex items-center gap-2 text-[19px] font-bold text-[#92400e]">
+              <i data-lucide="megaphone" class="h-5 w-5"></i>
+              Pengumuman Terkini
+            </h3>
+            <p class="mt-2 text-sm text-[#78350f]">Tarikh tutup pencalonan MAPeNS 2026 ialah 15 Ogos 2026. Sila pastikan semua dokumen lengkap sebelum penghantaran.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-pengenalan" class="app-section hidden">
+        <div class="mx-auto max-w-4xl space-y-8 px-6 py-12">
+          <h2 class="font-display text-center text-2xl font-bold text-white">Pengenalan MAPeNS</h2>
+          <div class="premium-card fade-up rounded-2xl bg-white p-6 dark:bg-gray-800">
+            <h3 class="flex items-center gap-2 text-[19px] font-bold text-gray-900 dark:text-white"><i data-lucide="target" class="h-5 w-5 text-amber-600"></i>Objektif</h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">Memberi pengiktirafan kepada warga pendidik dan pengurusan sekolah yang telah menunjukkan kecemerlangan dalam bidang masing-masing di daerah Kota Marudu.</p>
+          </div>
+          <div class="premium-card fade-up rounded-2xl bg-white p-6 dark:bg-gray-800">
+            <h3 class="flex items-center gap-2 text-[19px] font-bold text-gray-900 dark:text-white"><i data-lucide="info" class="h-5 w-5 text-blue-600"></i>Latar Belakang</h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">MAPeNS merupakan inisiatif PPD Kota Marudu bagi meraikan sumbangan cemerlang warga pendidik dalam aspek pengurusan, pengajaran, inovasi dan kepimpinan sekolah.</p>
+          </div>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div class="premium-card fade-up rounded-2xl bg-white p-6 dark:bg-gray-800">
+              <h3 class="flex items-center gap-2 text-[19px] font-bold text-gray-900 dark:text-white"><i data-lucide="eye" class="h-5 w-5 text-purple-600"></i>Visi</h3>
+              <p class="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">Melahirkan warga pendidik yang berprestasi tinggi dan diiktiraf di peringkat daerah, negeri dan kebangsaan.</p>
+            </div>
+            <div class="premium-card fade-up rounded-2xl bg-white p-6 dark:bg-gray-800">
+              <h3 class="flex items-center gap-2 text-[19px] font-bold text-gray-900 dark:text-white"><i data-lucide="rocket" class="h-5 w-5 text-emerald-600"></i>Misi</h3>
+              <p class="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">Menyediakan platform pengiktirafan yang telus, adil dan profesional bagi memotivasikan kecemerlangan berterusan.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-garis-masa" class="app-section hidden">
+        <div class="mx-auto max-w-4xl px-6 py-12">
+          <h2 class="font-display mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white">Garis Masa Pelaksanaan</h2>
+          <div class="relative">
+            <div class="absolute bottom-0 left-5 top-0 w-0.5 bg-gradient-to-b from-amber-400 via-blue-400 to-emerald-400"></div>
+            <div id="timeline-list" class="space-y-6"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-jawatankuasa" class="app-section hidden">
+        <div class="mx-auto max-w-5xl px-6 py-12">
+          <h2 class="font-display mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white">Jawatankuasa Pelaksana</h2>
+          <div id="committee-grid" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
+        </div>
+      </section>
+
+      <section id="sec-pic" class="app-section hidden">
+        <div class="mx-auto max-w-5xl px-6 py-12">
+          <h2 class="font-display mb-6 text-center text-2xl font-bold text-gray-900 dark:text-white">PIC Anugerah MAPeNS</h2>
+          <div class="mb-8 flex flex-wrap justify-center gap-2">
+            <button class="pic-filter active rounded-full bg-amber-500 px-4 py-2 text-sm font-medium text-white" data-filter="all">Semua</button>
+            <button class="pic-filter rounded-full bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200" data-filter="guru">Guru</button>
+            <button class="pic-filter rounded-full bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200" data-filter="pentadbir">Pentadbir</button>
+          </div>
+          <div class="overflow-x-auto rounded-2xl shadow-lg">
+            <table class="w-full text-sm">
+              <thead class="bg-gray-50 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">Kategori</th>
+                  <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">PIC</th>
+                  <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">Telefon</th>
+                  <th class="px-4 py-3 text-left font-semibold text-gray-600 dark:text-gray-300">E-mel</th>
+                </tr>
+              </thead>
+              <tbody id="pic-table"
+       class="divide-y divide-gray-100 bg-white text-gray-800 dark:divide-gray-700 dark:bg-gray-900 dark:text-gray-200">
+</tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="sec-kategori" class="app-section hidden">
+        <div class="mx-auto max-w-5xl px-6 py-12">
+          <h2 class="font-display mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white">Kategori Anugerah</h2>
+          <div id="award-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+<div id="driveViewer" class="hidden mt-8">
+
+    <div class="bg-white rounded-2xl shadow-lg p-4 dark:bg-gray-800">
+
+        <div class="flex justify-between items-center mb-4">
+
+            <h3 id="folderTitle"
+                class="text-xl font-bold">
+            </h3>
+
+            <button
+                onclick="closeFolder()"
+                class="bg-red-500 text-white px-4 py-2 rounded-lg">
+
+                Tutup
+
+            </button>
+
+        </div>
+
+        <iframe
+            id="driveFrame"
+            width="100%"
+            height="700"
+            style="border:none;border-radius:12px;">
+        </iframe>
+
+    </div>
+
+</div>
+        </div>
+      </section>
+
+      <section id="sec-muat-turun" class="app-section hidden">
+        <div class="mx-auto max-w-4xl px-6 py-12">
+          <h2 class="font-display mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white">Muat Turun Dokumen</h2>
+          <div id="download-grid" class="grid gap-4 sm:grid-cols-2"></div>
+          <p class="mt-6 text-center text-xs italic text-gray-400">* Dokumen sebenar akan dimuat naik sebelum tarikh edaran borang.</p>
+        </div>
+      </section>
+
+      <section id="sec-hebahan" class="app-section hidden">
+        <div class="mx-auto max-w-4xl px-6 py-12">
+          <h2 class="font-display mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white">Hebahan & FAQ</h2>
+          <div id="announcement-list" class="space-y-4"></div>
+        </div>
+      </section>
+
+      <section id="sec-hubungi" class="app-section hidden">
+        <div class="mx-auto max-w-4xl px-6 py-12">
+          <h2 class="font-display mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white">Hubungi Kami</h2>
+          <div class="premium-card mx-auto max-w-md rounded-2xl bg-white p-8 text-center dark:bg-gray-800">
+            <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/30">
+              <i data-lucide="building-2" class="h-8 w-8 text-amber-600"></i>
+            </div>
+            <h3 class="text-[19px] font-bold text-gray-900 dark:text-white">Urus Setia MAPeNS, PPD Kota Marudu</h3>
+            <p class="mt-3 text-sm text-gray-600 dark:text-gray-300">Pejabat Pendidikan Daerah Kota Marudu, Peti Surat 21, 89108 Kota Marudu, Sabah</p>
+            <p class="mt-2 flex items-center justify-center gap-2 text-sm font-medium text-blue-600"><i data-lucide="phone" class="h-4 w-4"></i>088-661205</p>
+            <p class="mt-1 flex items-center justify-center gap-2 text-sm text-blue-600"><i data-lucide="mail" class="h-4 w-4"></i>ppdkotamarudu@moe.gov.my</p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="w-full bg-gray-800 py-6 text-center">
+        <p class="text-sm text-gray-400">&copy; 2026 MAPeNS - Pejabat Pendidikan Daerah Kota Marudu, Sabah</p>
+      </footer>
+    </div>
+
+    <script>
+      const timelineData = [
+        { title: "Taklimat MAPeNS", date: "15 Julai 2026", status: "Selesai", statusClass: "status-done", icon: "megaphone", color: "amber" },
+        { title: "Edaran Borang Pencalonan", date: "20 Julai 2026", status: "Sedang Berlangsung", statusClass: "status-active", icon: "file-text", color: "blue" },
+        { title: "Tarikh Tutup Pencalonan", date: "15 Ogos 2026", status: "Belum Bermula", statusClass: "status-pending", icon: "clock", color: "orange" },
+        { title: "Semakan & Penilaian Panel", date: "20 - 25 Ogos 2026", status: "Belum Bermula", statusClass: "status-pending", icon: "search", color: "purple" },
+        { title: "Mesyuarat Penyelarasan", date: "5 September 2026", status: "Belum Bermula", statusClass: "status-pending", icon: "users", color: "pink" },
+        { title: "Majlis MAPeNS", date: "15 September 2026", status: "Belum Bermula", statusClass: "status-pending", icon: "award", color: "emerald" },
+      ];
+
+      const committeeData = [
+        { name: "En. Rusdih bin Linah", role: "Pengerusi", description: "Mengetuai keseluruhan pelaksanaan MAPeNS", color: "amber" },
+        { name: "En. Julian Bin Kadim", role: "Setiausaha", description: "Pengurusan dokumen dan minit mesyuarat", color: "blue" },
+        { name: "En. Rozainie Matimpan", role: "Urus Setia", description: "Koordinasi logistik dan komunikasi", color: "emerald" },
+        { name: "Pn. Halizah bininti Abdul Halim/Dr Mejran Duman", role: "Protokol & Jamuan", description: "Pengurusan protokol majlis dan jamuan", color: "purple" },
+        { name: "En. Makrin bin Sudi/Mazrin Yubing", role: "Teknikal & Multimedia", description: "Sistem bunyi, visual dan dokumentasi", color: "pink" },
+        { name: "Pn. Jovita Sabut", role: "Hadiah & Sijil", description: "Penyediaan hadiah, trofi dan sijil", color: "cyan" },
+      ];
+
+      const awardData = [
+  {
+    title: "Anugerah Utama",
+    description: "Tokoh Kepemimpinan dan Tokoh Guru",
+    icon: "👑",
+    folderId: "1ikA-OIpaf1-aC64wFV96U9HVQ7Yvy7sr",
+    image: "https://images.pexels.com/photos/5212687/pexels-photo-5212687.jpeg?auto=compress&cs=tinysrgb&w=800",
+    alt: "Anugerah Utama MAPeNS",
+  },
+  {
+    title: "Anugerah Khas Pendidikan",
+    description: "Kategori pengiktirafan khas dalam bidang pendidikan.",
+    icon: "🏅",
+    folderId: "1-StsJiaLQ5kIAtuPRUCI-JjoVmRXGtja",
+    image: "https://images.pexels.com/photos/7742832/pexels-photo-7742832.jpeg?auto=compress&cs=tinysrgb&w=800",
+    alt: "Anugerah Khas Pendidikan",
+  },
+  {
+    title: "Anugerah Ikon",
+    description: "Kategori pengiktirafan ikon pendidikan.",
+    icon: "⭐",
+    folderId: "1-POCAo2egz9IXA6o5E-0Y5Jrv_okhKVR",
+    image: "https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=800",
+    alt: "Anugerah Ikon",
+  },
+  {
+    title: "Anugerah Guru Inovatif",
+    description: "Kategori guru yang cemerlang dalam inovasi PdP.",
+    icon: "💡",
+    folderId: "1cYRwa8Fvka0l20OZYytPYWoRyT0Vhu9J",
+    image: "https://images.pexels.com/photos/7156144/pexels-photo-7156144.jpeg?auto=compress&cs=tinysrgb&w=800",
+    alt: "Anugerah Guru Inovatif",
+  },
+  {
+    title: "Anugerah Guru Berwibawa",
+    description: "Kategori guru yang menunjukkan profesionalisme dan kepimpinan pendidikan.",
+    icon: "🎓",
+    folderId: "1N9uoKCgGAD7Er_HNG0__7tnjW_imEMTj",
+    image: "https://images.pexels.com/photos/256520/pexels-photo-256520.jpeg?auto=compress&cs=tinysrgb&w=800",
+    alt: "Anugerah Guru Berwibawa",
+  }
+];
+      const downloadData = [
+        { title: "Borang Pencalonan MAPeNS", meta: "PDF | 2.1 MB", color: "red" },
+        { title: "Garis Panduan & Rubrik", meta: "PDF | 1.8 MB", color: "blue" },
+        { title: "Surat Siaran & SLU", meta: "PDF | 980 KB", color: "green" },
+        { title: "Poster MAPeNS 2026", meta: "PNG | 3.5 MB", color: "purple" },
+      ];
+
+      const announcementData = [
+        { icon: "pin", title: "Taklimat MAPeNS Berjaya Dilaksanakan", description: "Taklimat telah diadakan pada 15 Julai 2026 melibatkan semua Pengetua dan Guru Besar daerah Kota Marudu." },
+        { icon: "circle-help", title: "Bolehkah satu sekolah menghantar lebih dari satu pencalonan?", description: "Ya, sekolah boleh mencalonkan lebih dari seorang calon bagi kategori yang berbeza. Satu calon hanya boleh dicalonkan untuk satu kategori." },
+        { icon: "circle-help", title: "Apakah dokumen yang diperlukan?", description: "Borang pencalonan lengkap, salinan sijil, evidens pencapaian, portfolio dan surat pengesahan Pengetua/Guru Besar." },
+      ];
+
+      const picData = [
+        { kategori: "Anugerah utama", pic: "En. Makrin Sudi", tel: "088-111222", email: "makrin@ppd.edu.my", type: "guru" },
+        { kategori: "Anugerah Khas Pendidikan", pic: "Pn. Jovita", tel: "088-111333", email: "jovita@ppd.edu.my", type: "guru" },
+        { kategori: "Anugerah Ikon", pic: "En.Rozainie", tel: "088-111444", email: "Rozainie@ppd.edu.my", type: "guru" },
+        { kategori: "Anugerah Guru Inovatif", pic: "En.Julian Bin Kadim ", tel: "088-111555", email: "rosalind@ppd.edu.my", type: "guru" },
+        { kategori: "Anugerah Guru berwibawa", pic: "Dr. Mejran Duman", tel: "088-222111", email: "kamal@ppd.edu.my", type: "pentadbir" },
+        { kategori: "Guru Besar Cemerlang", pic: "Pn. Fatimah", tel: "088-222222", email: "fatimah@ppd.edu.my", type: "pentadbir" },
+        { kategori: "AKP Cemerlang", pic: "En. Razak", tel: "088-222333", email: "razak@ppd.edu.my", type: "pentadbir" },
+      ];
+
+      const colorClasses = {
+        amber: { bg: "bg-amber-100 dark:bg-amber-900/40", border: "border-amber-400", text: "text-amber-600", top: "border-amber-500", role: "text-[#92400e]" },
+        blue: { bg: "bg-blue-100 dark:bg-blue-900/40", border: "border-blue-400", text: "text-blue-600", top: "border-blue-500", role: "text-[#1e40af]" },
+        emerald: { bg: "bg-emerald-100 dark:bg-emerald-900/40", border: "border-emerald-400", text: "text-emerald-600", top: "border-emerald-500", role: "text-[#166534]" },
+        orange: { bg: "bg-orange-100 dark:bg-orange-900/40", border: "border-orange-400", text: "text-orange-600", top: "border-orange-500", role: "text-[#c2410c]" },
+        purple: { bg: "bg-purple-100 dark:bg-purple-900/40", border: "border-purple-400", text: "text-purple-600", top: "border-purple-500", role: "text-[#7c3aed]" },
+        pink: { bg: "bg-pink-100 dark:bg-pink-900/40", border: "border-pink-400", text: "text-pink-600", top: "border-pink-500", role: "text-[#db2777]" },
+        cyan: { bg: "bg-cyan-100 dark:bg-cyan-900/40", border: "border-cyan-400", text: "text-cyan-600", top: "border-cyan-500", role: "text-[#0891b2]" },
+        red: { bg: "bg-red-100 dark:bg-red-900/30", text: "text-red-600" },
+        green: { bg: "bg-green-100 dark:bg-green-900/30", text: "text-green-600" },
+      };
+
+      function createTimeline() {
+        document.getElementById("timeline-list").innerHTML = timelineData
+          .map((item) => {
+            const colors = colorClasses[item.color];
+            return `
+              <div class="fade-up flex items-start gap-4">
+                <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 ${colors.bg} ${colors.border}">
+                  <i data-lucide="${item.icon}" class="h-4 w-4 ${colors.text}"></i>
+                </div>
+                <div class="premium-card flex-1 rounded-xl bg-white p-4 dark:bg-gray-800">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-sm font-bold text-gray-900 dark:text-white">${item.title}</p>
+                    <span class="${item.statusClass} rounded-full px-2 py-0.5 text-xs font-medium">${item.status}</span>
+                  </div>
+                  <p class="mt-1 text-xs text-gray-500">${item.date}</p>
+                </div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function createCommittee() {
+        document.getElementById("committee-grid").innerHTML = committeeData
+          .map((member) => {
+            const colors = colorClasses[member.color];
+            return `
+              <div class="premium-card fade-up rounded-2xl border-t-4 ${colors.top} bg-white p-5 dark:bg-gray-800">
+                <h3 class="text-[19px] font-bold text-gray-900 dark:text-white">${member.name}</h3>
+                <p class="mt-1 text-xs font-semibold ${colors.role}">${member.role}</p>
+                <p class="mt-2 text-sm text-gray-500">${member.description}</p>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function createAwards() {
+
+  document.getElementById("award-grid").innerHTML =
+    awardData.map((award) => `
+      <div
+        onclick="openFolder('${award.folderId}','${award.title}')"
+        class="premium-card fade-up overflow-hidden rounded-2xl bg-white shadow-lg dark:bg-gray-800 cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+        <div class="relative h-44 overflow-hidden">
+
+          <img
+            src="${award.image}"
+            alt="${award.alt}"
+            class="h-full w-full object-cover transition-transform duration-500 hover:scale-110">
+
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+
+          <div class="absolute bottom-4 left-4 flex items-center gap-2">
+
+            <span class="text-3xl">
+              ${award.icon}
+            </span>
+
+            <h3 class="text-xl font-bold text-white drop-shadow">
+              ${award.title}
+            </h3>
+
+          </div>
+
+        </div>
+
+        <div class="p-5">
+
+          <p class="text-sm text-gray-600 dark:text-gray-300">
+            ${award.description}
+          </p>
+
+          <div class="mt-4 flex items-center justify-end text-amber-600 font-semibold">
+
+            <span>Buka Dokumen</span>
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="ml-2 h-5 w-5"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor">
+
+              <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"/>
+
+            </svg>
+
+          </div>
+
+        </div>
+
+      </div>
+    `).join("");
+
+  lucide.createIcons();
+
+}
+function openFolder(folderId,title){
+
+    document.getElementById("folderTitle").textContent=title;
+
+    document.getElementById("driveFrame").src=
+    `https://drive.google.com/embeddedfolderview?id=${folderId}#grid`;
+
+    document.getElementById("driveViewer").classList.remove("hidden");
+
+    document.getElementById("driveViewer").scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+function closeFolder(){
+
+    document.getElementById("driveViewer").classList.add("hidden");
+
+    document.getElementById("driveFrame").src="";
+
+}
+      function createDownloads() {
+        document.getElementById("download-grid").innerHTML = downloadData
+          .map((item) => {
+            const colors = colorClasses[item.color];
+            return `
+              <div class="premium-card fade-up flex items-center gap-4 rounded-xl bg-white p-5 dark:bg-gray-800">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg ${colors.bg}">
+                  <i data-lucide="file-text" class="h-5 w-5 ${colors.text}"></i>
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-medium text-gray-900 dark:text-white">${item.title}</p>
+                  <p class="mt-0.5 text-xs text-gray-400">${item.meta}</p>
+                </div>
+                <i data-lucide="download" class="h-4 w-4 text-gray-400"></i>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function createAnnouncements() {
+        document.getElementById("announcement-list").innerHTML = announcementData
+          .map(
+            (item) => `
+              <div class="premium-card fade-up rounded-xl bg-white p-5 dark:bg-gray-800">
+                <h3 class="flex items-start gap-2 text-[19px] font-bold text-gray-900 dark:text-white">
+                  <i data-lucide="${item.icon}" class="mt-0.5 h-5 w-5 text-amber-600"></i>
+                  <span>${item.title}</span>
+                </h3>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">${item.description}</p>
+              </div>
+            `,
+          )
+          .join("");
+      }
+
+      function renderPIC(filter) {
+        const tbody = document.getElementById("pic-table");
+        const filtered = filter === "all" ? picData : picData.filter((row) => row.type === filter);
+        tbody.innerHTML = filtered
+          .map(
+            (row) => `
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
+                <td class="px-4 py-3 font-medium">${row.kategori}</td>
+                <td class="px-4 py-3">${row.pic}</td>
+                <td class="px-4 py-3">${row.tel}</td>
+                <td class="px-4 py-3 text-blue-600">${row.email}</td>
+              </tr>
+            `,
+          )
+          .join("");
+      }
+
+      createTimeline();
+      createCommittee();
+      createAwards();
+      createDownloads();
+      createAnnouncements();
+      renderPIC("all");
+
+      lucide.createIcons();
+
+           const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      const menuToggle = document.getElementById("menu-toggle");
+
+      menuToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+        overlay.classList.toggle("hidden");
+      });
+
+      overlay.addEventListener("click", () => {
+        sidebar.classList.remove("open");
+        overlay.classList.add("hidden");
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document.querySelectorAll(".fade-up").forEach((element) => observer.observe(element));
+
+      function showSection(sectionId, updateHash = true) {
+        const targetButton = document.querySelector(`.nav-item[data-section="${sectionId}"]`);
+        const targetSection = document.getElementById("sec-" + sectionId);
+
+        if (!targetButton || !targetSection) {
+          return;
+        }
+
+          document.querySelectorAll(".nav-item").forEach((navButton) => {
+            navButton.classList.remove("active");
+            navButton.classList.add("text-gray-600", "dark:text-gray-300");
+          });
+
+        targetButton.classList.add("active");
+        targetButton.classList.remove("text-gray-600", "dark:text-gray-300");
+
+          document.querySelectorAll(".app-section").forEach((section) => section.classList.add("hidden"));
+        targetSection.classList.remove("hidden");
+        document.querySelectorAll("#sec-" + sectionId + " .fade-up").forEach((element) => observer.observe(element));
+
+          sidebar.classList.remove("open");
+          overlay.classList.add("hidden");
+          window.scrollTo(0, 0);
+
+        if (updateHash) {
+          history.replaceState(null, "", "#" + sectionId);
+        }
+      }
+
+      document.querySelectorAll(".nav-item").forEach((button) => {
+        button.addEventListener("click", () => {
+          showSection(button.dataset.section);
+        });
+      });
+
+      const initialSection = window.location.hash.replace("#", "");
+      if (initialSection) {
+        showSection(initialSection, false);
+      }
+
+      const target = new Date("2026-09-15T08:00:00+08:00").getTime();
+
+      function updateCountdown() {
+        const diff = Math.max(0, target - Date.now());
+        document.getElementById("cd-days").textContent = Math.floor(diff / 86400000);
+        document.getElementById("cd-hours").textContent = Math.floor((diff % 86400000) / 3600000);
+        document.getElementById("cd-mins").textContent = Math.floor((diff % 3600000) / 60000);
+        document.getElementById("cd-secs").textContent = Math.floor((diff % 60000) / 1000);
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      document.querySelectorAll(".pic-filter").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".pic-filter").forEach((filterButton) => {
+            filterButton.classList.remove("active", "bg-amber-500", "text-white");
+            filterButton.classList.add("bg-gray-100", "text-gray-700", "dark:bg-gray-700", "dark:text-gray-200");
+          });
+
+          button.classList.add("active", "bg-amber-500", "text-white");
+          button.classList.remove("bg-gray-100", "text-gray-700", "dark:bg-gray-700", "dark:text-gray-200");
+          renderPIC(button.dataset.filter);
+        });
+      });
+
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("sw.js").catch(() => {
+            // PWA still works as a normal web page when service workers are unavailable.
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
