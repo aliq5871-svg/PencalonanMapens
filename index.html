@@ -189,6 +189,22 @@
     border-top:1px solid #1e293b;
 
 }
+
+/* ===== PREMIUM HEBAHAN & FAQ ===== */
+.announcement-hero{background:linear-gradient(135deg,#451a03,#92400e 48%,#b45309);color:white}
+.announcement-card{transition:.25s;border:1px solid rgba(245,158,11,.15)}
+.announcement-card:hover{transform:translateY(-3px);box-shadow:0 14px 35px rgba(0,0,0,.12)}
+.faq-item{overflow:hidden;border:1px solid #e2e8f0;border-radius:16px;background:#fff;transition:.25s}
+.dark .faq-item{background:#1e293b;border-color:#334155}
+.faq-item.open{border-color:#f59e0b;box-shadow:0 10px 28px rgba(245,158,11,.10)}
+.faq-question{width:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.1rem;text-align:left;font-weight:700}
+.faq-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.faq-answer>div{overflow:hidden}
+.faq-item.open .faq-answer{grid-template-rows:1fr}
+.faq-chevron{transition:transform .3s}
+.faq-item.open .faq-chevron{transform:rotate(180deg)}
+.announcement-pill{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+
     </style>
   </head>
   <body class="min-h-screen w-full bg-[#0f172a] text-slate-200">
@@ -277,7 +293,7 @@
               </div>
             </div>
 
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfrJWB29EAbTrLat5OuqQJ-sPnPBILEBMuItAgtVqD0bQHzCA/viewform?usp=sharing&ouid=112402475530311002268" target="_blank" rel="noopener noreferrer"
+            <a href="https://drive.google.com/drive/folders/1MbI3gJ6DeOXgpE22jNBOXgxHh4aZcknE?usp=drive_link" target="_blank" rel="noopener noreferrer"
                class="mt-8 inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 px-8 py-4 text-base font-bold text-slate-950 shadow-2xl ring-2 ring-amber-300/40 transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-amber-500/40 focus:outline-none focus:ring-4 focus:ring-amber-300/60">
               <i data-lucide="file-pen-line" class="h-5 w-5"></i>
               MULA PENCALONAN
@@ -428,10 +444,57 @@
         </div>
       </section>
 
-      <section id="sec-hebahan" class="app-section hidden">
-        <div class="mx-auto max-w-4xl px-6 py-12">
-          <h2 class="font-display mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white">Hebahan & FAQ</h2>
-          <div id="announcement-list" class="space-y-4"></div>
+      
+<section id="sec-hebahan" class="app-section hidden">
+        <div class="mx-auto max-w-5xl px-6 py-10 sm:py-12">
+          <div class="announcement-hero relative overflow-hidden rounded-3xl p-7 shadow-2xl sm:p-10">
+            <div class="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-amber-300/15"></div>
+            <div class="absolute -bottom-20 -left-10 h-48 w-48 rounded-full bg-white/10"></div>
+            <div class="relative">
+              <span class="announcement-pill inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-amber-100">
+                <i data-lucide="bell-ring" class="h-4 w-4"></i> Pusat Maklumat
+              </span>
+              <h2 class="mt-4 font-display text-3xl font-black sm:text-4xl">Hebahan & FAQ</h2>
+              <p class="mt-3 max-w-2xl text-sm leading-relaxed text-amber-50/90">
+                Maklumat penting berkaitan pelaksanaan MAPeNS 2026 serta jawapan kepada soalan lazim pencalonan.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <div class="mb-4">
+              <p class="text-xs font-bold uppercase tracking-[.16em] text-amber-600">Terkini</p>
+              <h3 class="mt-1 text-xl font-bold text-gray-900 dark:text-white">Hebahan Penting</h3>
+            </div>
+            <div id="announcement-list" class="grid gap-4 md:grid-cols-3"></div>
+          </div>
+
+          <div class="mt-10">
+            <div class="mb-4">
+              <p class="text-xs font-bold uppercase tracking-[.16em] text-blue-600">Bantuan</p>
+              <h3 class="mt-1 text-xl font-bold text-gray-900 dark:text-white">Soalan Lazim</h3>
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Klik soalan untuk melihat jawapan.</p>
+            </div>
+            <div id="faq-list" class="space-y-3"></div>
+          </div>
+
+          <div class="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-900/50 dark:bg-amber-900/20">
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div class="flex gap-3">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500 text-white">
+                  <i data-lucide="file-pen-line" class="h-5 w-5"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-amber-950 dark:text-amber-100">Bersedia untuk membuat pencalonan?</p>
+                  <p class="mt-1 text-xs text-amber-800/80 dark:text-amber-200/70">Lengkapkan borang pencalonan MAPeNS 2026 secara dalam talian.</p>
+                </div>
+              </div>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfrJWB29EAbTrLat5OuqQJ-sPnPBILEBMuItAgtVqD0bQHzCA/viewform?usp=sharing&ouid=112402475530311002268" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 rounded-xl bg-amber-500 px-5 py-3 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-amber-600">
+                MULA PENCALONAN <i data-lucide="external-link" class="h-4 w-4"></i>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -517,7 +580,7 @@
   }
 ];
       const downloadData = [
-        { title: "Borang Pencalonan MAPeNS", meta: "PDF | 2.1 MB", color: "red" },
+        { title: "Borang Pencalonan MAPeNS", meta: "PDF | 2.1 MB", color: "red", link: "https://drive.google.com/drive/folders/1MbI3gJ6DeOXgpE22jNBOXgxHh4aZcknE?usp=drive_link" },
         { title: "Garis Panduan & Rubrik", meta: "PDF | 1.8 MB", color: "blue" },
         { title: "Surat Siaran & SLU", meta: "PDF | 980 KB", color: "green" },
         { title: "Poster MAPeNS 2026", meta: "PNG | 3.5 MB", color: "purple" },
@@ -679,7 +742,7 @@ function closeFolder(){
           .map((item) => {
             const colors = colorClasses[item.color];
             return `
-              <div class="premium-card fade-up flex items-center gap-4 rounded-xl bg-white p-5 dark:bg-gray-800">
+              <a ${item.link ? `href="${item.link}" target="_blank" rel="noopener noreferrer"` : ""} class="premium-card fade-up flex items-center gap-4 rounded-xl bg-white p-5 dark:bg-gray-800 ${item.link ? "cursor-pointer hover:-translate-y-0.5 transition" : ""}">
                 <div class="flex h-10 w-10 items-center justify-center rounded-lg ${colors.bg}">
                   <i data-lucide="file-text" class="h-5 w-5 ${colors.text}"></i>
                 </div>
@@ -687,27 +750,75 @@ function closeFolder(){
                   <p class="text-sm font-medium text-gray-900 dark:text-white">${item.title}</p>
                   <p class="mt-0.5 text-xs text-gray-400">${item.meta}</p>
                 </div>
-                <i data-lucide="download" class="h-4 w-4 text-gray-400"></i>
-              </div>
+                <i data-lucide="${item.link ? "external-link" : "download"}" class="h-4 w-4 text-gray-400"></i>
+              </a>
             `;
           })
           .join("");
       }
 
+      const faqData = [
+        { q:"Bolehkah satu sekolah menghantar lebih dari satu pencalonan?", a:"Ya, sekolah boleh mencalonkan lebih dari seorang calon bagi kategori yang berbeza. Satu calon hanya boleh dicalonkan untuk satu kategori." },
+        { q:"Apakah dokumen yang diperlukan?", a:"Borang pencalonan lengkap, salinan sijil, evidens pencapaian, portfolio dan surat pengesahan Pengetua/Guru Besar." },
+        { q:"Bilakah taklimat MAPeNS dilaksanakan?", a:"Taklimat MAPeNS telah diadakan pada 15 Julai 2026 dan melibatkan semua Pengetua dan Guru Besar daerah Kota Marudu." },
+        { q:"Bagaimanakah dokumen pencalonan dihantar?", a:"Gunakan borang pencalonan dalam talian melalui butang MULA PENCALONAN dan pastikan semua dokumen/evidens yang diperlukan lengkap sebelum dihantar." },
+        { q:"Apakah yang perlu disemak sebelum menghantar pencalonan?", a:"Pastikan maklumat calon tepat, kategori yang dipilih betul dan semua dokumen serta evidens yang diperlukan telah lengkap." }
+      ];
+
       function createAnnouncements() {
-        document.getElementById("announcement-list").innerHTML = announcementData
-          .map(
-            (item) => `
-              <div class="premium-card fade-up rounded-xl bg-white p-5 dark:bg-gray-800">
-                <h3 class="flex items-start gap-2 text-[19px] font-bold text-gray-900 dark:text-white">
-                  <i data-lucide="${item.icon}" class="mt-0.5 h-5 w-5 text-amber-600"></i>
-                  <span>${item.title}</span>
-                </h3>
-                <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">${item.description}</p>
+        const items = [
+          { icon:"pin", tag:"MAKLUMAN", title:"Taklimat MAPeNS Berjaya Dilaksanakan", description:"Taklimat telah diadakan pada 15 Julai 2026 melibatkan semua Pengetua dan Guru Besar daerah Kota Marudu." },
+          { icon:"file-check-2", tag:"PENCALONAN", title:"Lengkapkan Dokumen Pencalonan", description:"Pastikan borang pencalonan, sijil, evidens pencapaian, portfolio dan surat pengesahan lengkap sebelum penghantaran." },
+          { icon:"calendar-clock", tag:"PERINGATAN", title:"Semak Tarikh & Garis Masa", description:"Rujuk bahagian Garis Masa Pelaksanaan untuk mendapatkan maklumat tarikh dan fasa pelaksanaan MAPeNS 2026." }
+        ];
+
+        document.getElementById("announcement-list").innerHTML = items.map(item => `
+          <article class="announcement-card premium-card rounded-2xl bg-white p-5 dark:bg-gray-800">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-100 dark:bg-amber-900/30">
+                <i data-lucide="${item.icon}" class="h-5 w-5 text-amber-600"></i>
               </div>
-            `,
-          )
-          .join("");
+              <span class="announcement-pill rounded-full bg-gray-100 px-2.5 py-1 text-gray-600 dark:bg-gray-700 dark:text-gray-300">${item.tag}</span>
+            </div>
+            <h4 class="mt-4 text-base font-bold text-gray-900 dark:text-white">${item.title}</h4>
+            <p class="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">${item.description}</p>
+          </article>
+        `).join("");
+
+        document.getElementById("faq-list").innerHTML = faqData.map((item,i) => `
+          <div class="faq-item" data-faq="${i}">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="flex items-center gap-3">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-xs font-bold text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">${String(i+1).padStart(2,"0")}</span>
+                <span class="text-gray-900 dark:text-white">${item.q}</span>
+              </span>
+              <i data-lucide="chevron-down" class="faq-chevron h-5 w-5 shrink-0 text-amber-600"></i>
+            </button>
+            <div class="faq-answer">
+              <div>
+                <div class="border-t border-gray-100 px-5 pb-5 pt-4 text-sm leading-relaxed text-gray-600 dark:border-gray-700 dark:text-gray-300">
+                  ${item.a}
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join("");
+
+        document.querySelectorAll(".faq-question").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const item = btn.closest(".faq-item");
+            const willOpen = !item.classList.contains("open");
+            document.querySelectorAll(".faq-item.open").forEach(openItem => {
+              openItem.classList.remove("open");
+              openItem.querySelector(".faq-question").setAttribute("aria-expanded","false");
+            });
+            if (willOpen) {
+              item.classList.add("open");
+              btn.setAttribute("aria-expanded","true");
+            }
+          });
+        });
+        lucide.createIcons();
       }
 
       function renderPIC(filter) {
