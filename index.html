@@ -205,10 +205,301 @@
 .faq-item.open .faq-chevron{transform:rotate(180deg)}
 .announcement-pill{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 
+    
+/* =========================================================
+   RESPONSIVE MOBILE + TABLET OPTIMIZATION
+   MAPeNS 2026
+   ========================================================= */
+
+/* Prevent horizontal overflow and improve touch interaction */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+button, a { -webkit-tap-highlight-color: transparent; }
+button, a { touch-action: manipulation; }
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  #sidebar { width: 230px !important; }
+  .md\:ml-\[260px\] { margin-left: 230px !important; }
+}
+
+/* Phones */
+@media (max-width: 767px) {
+  body {
+    min-width: 0 !important;
+    font-size: 14px;
+  }
+
+  /* Mobile navigation drawer */
+  #sidebar {
+    width: min(82vw, 300px) !important;
+    transform: translateX(-105%);
+    transition: transform .28s ease;
+    box-shadow: 18px 0 40px rgba(0,0,0,.35);
+  }
+  #sidebar.open { transform: translateX(0); }
+
+  /* Keep content clear of hamburger button */
+  .min-h-screen.md\:ml-\[260px\] {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  #menu-toggle {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+  }
+
+  /* Dashboard hero */
+  #sec-dashboard header {
+    min-height: 68vh !important;
+  }
+  #sec-dashboard header > div.relative {
+    min-height: 68vh !important;
+    padding: 5.5rem 1rem 2.5rem !important;
+  }
+  #sec-dashboard h1 {
+    font-size: clamp(2rem, 10vw, 2.8rem) !important;
+    line-height: 1.05;
+  }
+  #sec-dashboard header p {
+    max-width: 92vw;
+    line-height: 1.45;
+  }
+
+  /* Countdown: compact 4-column cards */
+  #sec-dashboard .mt-8.flex {
+    width: 100%;
+    max-width: 360px;
+    gap: .45rem !important;
+    justify-content: center;
+  }
+  #sec-dashboard .mt-8.flex > div {
+    min-width: 0 !important;
+    flex: 1 1 0;
+    padding: .65rem .3rem !important;
+    border-radius: 14px;
+  }
+  #sec-dashboard .countdown-digit {
+    font-size: 1.35rem !important;
+  }
+  #sec-dashboard .mt-1.text-\[10px\] {
+    font-size: 8px !important;
+    letter-spacing: .1em !important;
+  }
+
+  /* Main CTA */
+  #sec-dashboard a.mt-8 {
+    width: min(100%, 320px);
+    justify-content: center;
+    padding: .85rem 1rem !important;
+    font-size: .9rem !important;
+  }
+
+  /* Dashboard statistic cards */
+  #sec-dashboard > div.relative.z-10 {
+    margin-top: -1.5rem !important;
+    padding: 1rem !important;
+    gap: .65rem !important;
+  }
+  #sec-dashboard > div.relative.z-10 > div {
+    padding: .9rem .55rem !important;
+    border-radius: 16px;
+  }
+  #sec-dashboard > div.relative.z-10 .text-2xl {
+    font-size: 1.3rem !important;
+  }
+  #sec-dashboard > div.relative.z-10 p {
+    font-size: .72rem !important;
+    line-height: 1.25;
+  }
+
+  /* All sections: reduce side padding */
+  .app-section > div {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* Section headings */
+  .app-section h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+
+  /* Cards */
+  .premium-card {
+    border-radius: 16px !important;
+  }
+
+  /* Award cards: one column on narrow phones */
+  #award-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  #award-grid > div .relative.h-44 {
+    height: 11rem !important;
+  }
+  #award-grid > div .p-5 {
+    padding: 1rem !important;
+  }
+  #award-grid h3 {
+    font-size: 1.05rem !important;
+  }
+
+  /* Download cards: one column, larger touch target */
+  #download-grid {
+    grid-template-columns: 1fr !important;
+    gap: .75rem !important;
+  }
+  #download-grid > a {
+    min-height: 74px;
+    padding: 1rem !important;
+  }
+  #download-grid > a .flex-1 {
+    min-width: 0;
+  }
+  #download-grid > a p:first-child {
+    line-height: 1.35;
+  }
+
+  /* Timeline */
+  #timeline-list {
+    gap: 1rem !important;
+  }
+  #timeline-list > div {
+    gap: .65rem !important;
+  }
+  #timeline-list > div > div:first-child {
+    width: 34px;
+    height: 34px;
+  }
+  #timeline-list .premium-card {
+    padding: .85rem !important;
+  }
+
+  /* Committee: one column */
+  #committee-grid {
+    grid-template-columns: 1fr !important;
+    gap: .8rem !important;
+  }
+
+  /* PIC filters and table */
+  .pic-filter {
+    min-height: 42px;
+    padding: .6rem .9rem !important;
+  }
+  #sec-pic .overflow-x-auto {
+    margin-left: -.25rem;
+    margin-right: -.25rem;
+    border-radius: 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+  #pic-table {
+    min-width: 680px;
+  }
+
+  /* Drive viewer fits phone width */
+  #driveViewer {
+    margin-top: 1rem !important;
+  }
+  #driveViewer > div {
+    padding: .75rem !important;
+  }
+  #driveViewer .mb-4 {
+    gap: .5rem;
+  }
+  #folderTitle {
+    font-size: 1rem !important;
+    line-height: 1.25;
+  }
+  #driveViewer button {
+    min-height: 42px;
+    padding: .55rem .8rem !important;
+  }
+  #driveFrame {
+    height: 62vh !important;
+    min-height: 420px;
+  }
+
+  /* FAQ */
+  .faq-question {
+    min-height: 58px;
+    padding: .85rem !important;
+    font-size: .88rem;
+  }
+  .faq-question > span:first-child {
+    min-width: 0;
+  }
+  .faq-question > span:first-child > span:last-child {
+    line-height: 1.35;
+  }
+  .faq-item .border-t {
+    padding: .85rem 1rem 1rem !important;
+  }
+
+  /* Announcements */
+  #announcement-list {
+    grid-template-columns: 1fr !important;
+  }
+  .announcement-hero {
+    border-radius: 20px !important;
+    padding: 1.35rem !important;
+  }
+  .announcement-hero h2 {
+    font-size: 1.65rem !important;
+  }
+
+  /* Hubungi */
+  #sec-hubungi .premium-card {
+    padding: 1.35rem !important;
+  }
+
+  /* Footer */
+  footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  footer p {
+    font-size: .72rem !important;
+    line-height: 1.5;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width: 380px) {
+  #sec-dashboard header > div.relative {
+    padding-left: .75rem !important;
+    padding-right: .75rem !important;
+  }
+  #sec-dashboard .mt-8.flex {
+    gap: .3rem !important;
+  }
+  #sec-dashboard .countdown-digit {
+    font-size: 1.15rem !important;
+  }
+  #sec-dashboard .mt-1.text-\[10px\] {
+    font-size: 7px !important;
+  }
+  #sec-dashboard > div.relative.z-10 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
     </style>
   </head>
   <body class="min-h-screen w-full bg-[#0f172a] text-slate-200">
-    <button id="menu-toggle" class="glass fixed left-4 top-4 z-50 rounded-lg bg-white/80 p-2 shadow-lg dark:bg-gray-800/80 md:hidden" aria-label="Buka menu">
+    <button id="menu-toggle" class="glass fixed left-4 top-4 z-[60] rounded-lg bg-white/80 p-2 shadow-lg dark:bg-gray-800/80 md:hidden" aria-label="Buka menu">
       <i data-lucide="menu" class="h-6 w-6 text-gray-700 dark:text-gray-200"></i>
     </button>
 
