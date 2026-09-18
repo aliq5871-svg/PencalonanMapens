@@ -606,15 +606,15 @@ button, a { touch-action: manipulation; }
 
         <div class="relative z-10 mx-auto -mt-8 grid max-w-5xl grid-cols-2 gap-4 p-6 lg:grid-cols-4">
           <div class="premium-card glass rounded-2xl bg-white/90 p-5 text-center shadow-lg dark:bg-gray-800/90">
-            <div class="text-2xl font-bold text-amber-600">31</div>
+            <div id="dash-kategori" class="text-2xl font-bold text-amber-600">--</div>
             <p class="mt-1 text-sm text-gray-500">Kategori Anugerah</p>
           </div>
           <div class="premium-card glass rounded-2xl bg-white/90 p-5 text-center shadow-lg dark:bg-gray-800/90">
-            <div class="text-2xl font-bold text-blue-600">0</div>
+            <div id="dash-diterima" class="text-2xl font-bold text-blue-600">--</div>
             <p class="mt-1 text-sm text-gray-500">Pencalonan Diterima</p>
           </div>
           <div class="premium-card glass rounded-2xl bg-white/90 p-5 text-center shadow-lg dark:bg-gray-800/90">
-            <div class="text-2xl font-bold text-emerald-600">5</div>
+            <div id="dash-sekolah" class="text-2xl font-bold text-emerald-600">--</div>
             <p class="mt-1 text-sm text-gray-500">Sekolah Terlibat</p>
           </div>
           <div class="premium-card glass rounded-2xl bg-white/90 p-5 text-center shadow-lg dark:bg-gray-800/90">
@@ -1282,7 +1282,7 @@ function closeFolder(){
          SEMAK STATUS — Google Sheet via Apps Script Web App
          ========================================================= */
       const MAPENS_SHEET_ID = "1v0GDKGmVeMFeVuMG0HQEhVrHfZBiSTzeY1O1p3AN3zk";
-      const MAPENS_STATUS_API = "https://script.google.com/macros/s/AKfycbyfRsQbILssOKUtYp8RH3DvkmRh5gtkcg1dzZKmNKg25eG5C6fo_AjryOKL3c81PRwE/exec";
+      const MAPENS_STATUS_API = "https://script.google.com/macros/s/AKfycbxvEkWZb41g552aCCQhvrMJsWVJf7UWJzTEBh-RUVj-HSfUMyoZhMPl7i2UrvcgtCft/exec";
 
       function escapeStatusHtml(value) {
         return String(value ?? "").replace(/[&<>"']/g, m => ({
@@ -1332,6 +1332,22 @@ function closeFolder(){
               </div>
             </article>`;
         }).join("");
+      }
+
+
+      async function loadMapensDashboardStats() {
+        const api = MAPENS_STATUS_API;
+        if (!api || api.includes("GANTIKAN")) return;
+        try {
+          const response = await fetch(api + "?dashboard=1", { cache: "no-store" });
+          const data = await response.json();
+          if (!data.ok || !data.dashboard) return;
+          document.getElementById("dash-kategori").textContent = data.dashboard.kategori ?? 0;
+          document.getElementById("dash-diterima").textContent = data.dashboard.diterima ?? 0;
+          document.getElementById("dash-sekolah").textContent = data.dashboard.sekolah ?? 0;
+        } catch (err) {
+          console.warn("Dashboard MAPeNS tidak dapat dimuat:", err);
+        }
       }
 
       async function semakStatusMapens() {
@@ -1385,6 +1401,9 @@ function closeFolder(){
           });
         });
       }
-    </script>
+    
+      loadMapensDashboardStats();
+      setInterval(loadMapensDashboardStats, 60000);
+</script>
   </body>
 </html>
