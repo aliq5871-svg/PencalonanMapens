@@ -772,6 +772,21 @@ button, a { touch-action: manipulation; }
           </div>
 
           <div id="status-result" class="mt-6"></div>
+          <div id="school-nomination-graph" class="mt-8 rounded-2xl border border-amber-100 bg-white p-6 shadow-lg dark:border-amber-900/30 dark:bg-slate-800">
+            <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wider text-amber-600">Statistik MAPeNS 2026</p>
+                <h3 class="mt-1 text-xl font-black text-slate-900 dark:text-white">Pencalonan Mengikut Sekolah</h3>
+                <p id="school-graph-status" class="mt-1 text-xs text-slate-500 dark:text-slate-400">Memuatkan data...</p>
+              </div>
+              <button id="school-graph-refresh" type="button"
+                class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 px-4 py-2 text-xs font-bold text-slate-950 shadow transition hover:-translate-y-0.5">
+                ↻ KEMAS KINI
+              </button>
+            </div>
+            <div id="school-graph-bars" class="space-y-3"></div>
+          </div>
+
         </div>
       </section>
 
@@ -1390,6 +1405,130 @@ function closeFolder(){
           lucide.createIcons();
         }
       }
+
+      /* ===== GRAF PENCALONAN MENGIKUT SEKOLAH =====
+         Tambahan sahaja. Fungsi asal dikekalkan.
+         Menggunakan JSONP supaya graf boleh berfungsi walaupun fail HTML
+         dibuka terus dari komputer (file://), tanpa masalah CORS. */
+      const MAPENS_GRAPH_SHEET_ID = "1v0GDKGmVeMFeVuMG0HQEhVrHfZBiSTzeY1O1p3AN3zk";
+
+      function getSchoolColumn(headers) {
+        const normalized = headers.map(h => String(h || "")
+          .toLowerCase().replace(/[_\-./]+/g, " ").replace(/\s+/g, " ").trim());
+        const preferred = [
+          "sekolah", "nama sekolah", "sekolah calon",
+          "sekolah guru", "nama sekolah calon", "nama sekolah guru"
+        ];
+        for (const name of preferred) {
+          const index = normalized.indexOf(name);
+          if (index !== -1) return index;
+        }
+        return normalized.findIndex(h => h.includes("sekolah"));
+      }
+
+      function renderSchoolGraphFromGviz(data) {
+        const status = document.getElementById("school-graph-status");
+        const bars = document.getElementById("school-graph-bars");
+        if (!status || !bars) return;
+
+        try {
+          const table = data && data.table;
+          const columns = table && table.cols ? table.cols : [];
+          const rows = table && table.rows ? table.rows : [];
+          const headers = columns.map(c => c.label || c.id || "");
+          const schoolIndex = getSchoolColumn(headers);
+
+          if (schoolIndex < 0) throw new Error("Lajur sekolah tidak ditemui.");
+
+          const counts = {};
+          rows.forEach(row => {
+            const cell = row.c && row.c[schoolIndex];
+            const school = String(cell && cell.v != null ? cell.v : "")
+              .trim().replace(/\s+/g, " ");
+            if (school) counts[school] = (counts[school] || 0) + 1;
+          });
+
+          const entries = Object.entries(counts)
+            .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ms"));
+
+          bars.innerHTML = "";
+          if (!entries.length) {
+            status.textContent = "Tiada data pencalonan sekolah untuk dipaparkan.";
+            return;
+          }
+
+          const max = entries[0][1];
+          const total = entries.reduce((sum, item) => sum + item[1], 0);
+
+          entries.forEach(([school, count]) => {
+            const item = document.createElement("div");
+            item.className = "space-y-1.5";
+
+            const header = document.createElement("div");
+            header.className = "flex items-center justify-between gap-3 text-xs font-semibold";
+
+            const label = document.createElement("span");
+            label.className = "min-w-0 truncate text-slate-700 dark:text-slate-200";
+            label.textContent = school;
+            label.title = school;
+
+            const number = document.createElement("span");
+            number.className = "shrink-0 text-slate-500 dark:text-slate-300";
+            number.textContent = count + " pencalonan";
+
+            header.append(label, number);
+
+            const track = document.createElement("div");
+            track.className = "h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700";
+
+            const bar = document.createElement("div");
+            bar.className = "h-full rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 transition-all duration-500";
+            bar.style.width = Math.max(4, (count / max) * 100) + "%";
+
+            track.appendChild(bar);
+            item.append(header, track);
+            bars.appendChild(item);
+          });
+
+          status.textContent =
+            "Jumlah pencalonan: " + total + " • Sekolah terlibat: " + entries.length;
+        } catch (error) {
+          console.error("Graf Pencalonan Sekolah:", error);
+          status.textContent = "Data Google Sheet tidak dapat dibaca.";
+        }
+      }
+
+      function loadSchoolNominationGraph() {
+        const status = document.getElementById("school-graph-status");
+        if (!status) return;
+        status.textContent = "Memuatkan data pencalonan...";
+
+        const callbackName = "mapensGraphCallback_" + Date.now();
+        window[callbackName] = function(data) {
+          try { renderSchoolGraphFromGviz(data); }
+          finally {
+            delete window[callbackName];
+            const old = document.getElementById("mapens-graph-jsonp");
+            if (old) old.remove();
+          }
+        };
+
+        const script = document.createElement("script");
+        script.id = "mapens-graph-jsonp";
+        script.src =
+          "https://docs.google.com/spreadsheets/d/" + MAPENS_GRAPH_SHEET_ID +
+          "/gviz/tq?tqx=responseHandler:" + callbackName + "&tq=" +
+          encodeURIComponent("select *");
+        script.onerror = function() {
+          status.textContent = "Graf tidak dapat dimuatkan. Pastikan Google Sheet boleh diakses.";
+          delete window[callbackName];
+          script.remove();
+        };
+        document.head.appendChild(script);
+      }
+
+      document.getElementById("school-graph-refresh")?.addEventListener("click", loadSchoolNominationGraph);
+      loadSchoolNominationGraph();
 
       document.getElementById("status-search-btn").addEventListener("click", semakStatusMapens);
       document.getElementById("status-search").addEventListener("keydown", e => {
