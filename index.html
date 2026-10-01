@@ -670,7 +670,8 @@ button, a { touch-action: manipulation; }
 
       <section id="sec-jawatankuasa" class="app-section hidden">
         <div class="mx-auto max-w-5xl px-6 py-12">
-          <h2 class="font-display mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white">Jawatankuasa Pelaksana</h2>
+          <h2 class="font-display mb-4 text-center text-2xl font-bold text-gray-900 dark:text-white">Jawatankuasa MAPeNS 2026</h2>
+          <p class="mb-10 text-center text-sm text-gray-500 dark:text-gray-400">Jawatankuasa Induk & Jawatankuasa Pelaksana</p>
           <div id="committee-grid" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
         </div>
       </section>
@@ -883,12 +884,105 @@ button, a { touch-action: manipulation; }
       ];
 
       const committeeData = [
-        { name: "En. Rusdih bin Linah", role: "Pengerusi", description: "Mengetuai keseluruhan pelaksanaan MAPeNS", color: "amber" },
-        { name: "Pn. Halizah bininti Abdul Halim", role: "Setiausaha", description: "Pengurusan dokumen dan minit mesyuarat", color: "blue" },
-        { name: "En. Rozainie Matimpan", role: "Urus Setia", description: "Koordinasi logistik dan komunikasi", color: "emerald" },
-        { name: "En.Julian bin Kadim/Dr Mejran Duman", role: "Protokol & Jamuan", description: "Pengurusan protokol majlis dan jamuan", color: "purple" },
-        { name: "En. Makrin bin Sudi/Mazrin Yubing", role: "Teknikal & Multimedia", description: "Sistem bunyi, visual dan dokumentasi", color: "pink" },
-        { name: "Pn. Jovita Sabut", role: "Hadiah & Sijil", description: "Penyediaan hadiah, trofi dan sijil", color: "cyan" },
+        {
+          section: "JAWATANKUASA INDUK", title: "Penasihat",
+          name: "Yang Berbahagia Tuan Haji Abidin bin Haji Marjan",
+          description: "Pengarah Jabatan Pendidikan Negeri Sabah", color: "amber"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "Pengerusi",
+          name: "En. Halim bin Hj. Bidin @ Bibin",
+          description: "Pegawai Pendidikan Daerah", color: "blue"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "Timbalan Pengerusi I",
+          name: "En. Rusdih bin Linah",
+          description: "Timbalan Pegawai Pendidikan Daerah • Sektor Pengurusan Sekolah", color: "emerald"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "Timbalan Pengerusi",
+          name: "En. Khairuddin bin Hj. Jamal",
+          description: "Timbalan Pegawai Pendidikan Daerah • Sektor Perancangan", color: "orange"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "Timbalan Pengerusi",
+          name: "En. Jaikob Tunding",
+          description: "Timbalan Pegawai Pendidikan Daerah • Sektor Pembelajaran", color: "purple"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "Timbalan Pengerusi",
+          name: "En. Said Ambar",
+          description: "Timbalan Pegawai Pendidikan Daerah • Sektor Pembangunan Murid", color: "pink"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "Timbalan Pengerusi",
+          name: "En. Sanaleh bin Hj. Daud",
+          description: "Pengerusi Persatuan Pengetua Sekolah Menengah (PPPSM) Daerah Kota Marudu", color: "cyan"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "Timbalan Pengerusi",
+          name: "En. Fowzi bin Boman",
+          description: "Pengerusi Persatuan Guru Besar Malaysia (PGBM) Cawangan Daerah Kota Marudu", color: "amber"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "Setiausaha",
+          name: "Pn. Halizah @ Nur Annisa binti Abdul Halim",
+          description: "Penolong Pegawai Pendidikan Daerah • Sektor Pengurusan Sekolah", color: "blue"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "Penolong Setiausaha",
+          name: "Pn. Cathrine Kulugut",
+          description: "Pembantu Tadbir PT/PO • Sektor Pengurusan, PPD Kota Marudu", color: "emerald"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "Bendahari",
+          name: "En. Alan Chong Shu Soon",
+          description: "Penolong Akauntan PPDKM", color: "orange"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "Penolong Bendahari",
+          name: "Pn. Jovita Sabut",
+          description: "Penolong Pegawai Pendidikan Daerah • Sektor Pengurusan Sekolah", color: "purple"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "AJK",
+          name: "Semua Pengetua",
+          description: "Jawatankuasa Induk", color: "pink"
+        },
+        {
+          section: "JAWATANKUASA INDUK", title: "AJK",
+          name: "Semua Guru Besar",
+          description: "Jawatankuasa Induk", color: "cyan"
+        },
+
+        { section: "JAWATANKUASA PELAKSANA", title: "1. Jawatankuasa Panel Anugerah", name: "En. Halim Hj. Bidin@Bibin", description: "Pengerusi • PPD", color: "amber", details: ["Tim. Pengerusi: En. Rusdih bin Linah — Timbalan PPD (SPS)", "Setiausaha: En. Makrin bin Hj. Sudi — PPPD (SPS)", "AJK: En. Khairuddin bin Hj. Jamal — Timbalan PPD (SPD)", "AJK: En. Jaikob Tunding — Timbalan PPD (SPb)", "AJK: En. Said Ambar — Timbalan PPD (SPM)", "AJK: En. Mohd Khuraini bin Khuzaimah — SIP+ (SPS)", "AJK: En. Ulik Likud — Ketua SPsK", "AJK: En. Sanaleh bin Hj. Daud — PPSMS Daerah", "AJK: En. Fowzi bin Boman — Pengerusi MGB Daerah", "AJK: Pn. Ho Kui Chin — Guru Besar SJKC Khoi Ming"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "2. Pengurus Majlis (Event Manager)", name: "En. Halim Hj. Bidin@Bibin", description: "PPD", color: "blue" },
+        { section: "JAWATANKUASA PELAKSANA", title: "3. Pengurus Lantai (Floor Manager)", name: "En. Makrin bin Hj. Sudi", description: "PPPD (SPS)", color: "emerald" },
+        { section: "JAWATANKUASA PELAKSANA", title: "4. Pengurus Pentas (Stage Manager)", name: "Dr. Mejran bin Duman", description: "Pengerusi • PPPD (SPS)", color: "orange" },
+        { section: "JAWATANKUASA PELAKSANA", title: "5. Jawatankuasa Penyambut Tetamu & Usher", name: "En. Sanaleh bin Hj. Daud", description: "Pengerusi • Pengerusi PPSMS", color: "purple", details: ["Timb. Pengerusi: En. Fowzi bin Boman — Pengerusi PGBM"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "6. Jawatankuasa Protokol", name: "En. Mohd Khuraini bin Khuzaimah", description: "Pengerusi • SIP+ (SPS)", color: "pink" },
+        { section: "JAWATANKUASA PELAKSANA", title: "7. Jawatankuasa Pematuhan dan Keselamatan SOP", name: "En. Ahmad Fadzly Mohd Satneh", description: "Pengerusi • PPPD (SPD)", color: "cyan", details: ["Tim. Peng.: En. Hamdan bin Awang — PPPD (SPP)", "AJK: Nicoly bin Majingkin — FT(PTIS)", "AJK: Ivian Johny — FT(PTIS)", "AJK: Muhammad Syafruz bin Yaakub — FT(PTIS)"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "8. Pegawai Pengiring / Liaison Officer", name: "Dr. Hj. Haidi bin Entoh", description: "Pengerusi • PPPD (SPD)", color: "amber", details: ["Timb. Pengerusi: En. Azhar bin Abd Rasid — GB SK Ranau"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "9. Jawatankuasa Buku Atur Cara", name: "En. Rodzainie bin Matimpan", description: "Pengerusi • Pen. PPD (SPS)", color: "blue", details: ["AJK: En. Ken Deavon Stephen — FT (PTIS)", "AJK: En. Mohamad Syafruz Yaakub — FT (PTIS)"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "10. Jawatankuasa Hadiah, Sijil & Cenderamata", name: "Pn. Jovita Sabut", description: "Pengerusi • PPPD (SPS)", color: "emerald", details: ["AJK: Pn. Cathrine Kulugut — PT/PO(SP/SPS)", "AJK: Pn Rizidah Majawal — PE (SP)", "AJK: En. Ivian Johny — FT (PTIS)", "AJK: Pn. Chong Bitt Ling — PA (SP)"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "11. Jawatankuasa Hiasan Pentas dan Susun Atur Dewan", name: "Pn. Mazrin Yubing", description: "Pengerusi • PPPD (SPS)", color: "orange", details: ["AJK: Pn. Nur Aisyah@ Barbara anak Rantai — SISC+ (SPb)", "AJK: Pn. Dayang Siti Nur Faezah — PT (SP)", "AJK: Cik Nurfidah Albari — PT (SP)"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "12. Jawatankuasa Publisiti & Tirai Latar / Backdrop / Banner", name: "En. Rasli Kamaruddin", description: "Pengerusi • FT", color: "purple", details: ["AJK: Pam Kim Lung — FT", "AJK: Suhairi Bin Mail — FT", "AJK: Nicolly Bin Majingkin — FT"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "13. Jawatankuasa Produksi Video dan Multimedia / Dokumentasi dan Fotografi", name: "En. Frisco Daniel", description: "Pengerusi • PPPD USTP (SPb)", color: "pink", details: ["AJK: En. Suhairi bin Mail — FT", "AJK: En. Ken Deavon Stephen — FT", "AJK: En. Maiter Enroy Bin Slyvester — FT"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "14. Jawatankuasa Jamuan", name: "Pn. Mazrin Binti Yubing", description: "Pengerusi • PPPD (SPS)", color: "cyan", details: ["AJK: Pn. Muslina binti Abd Halim — PTPO(SP)", "AJK: Pn. Rosita binti Dusi — PT/PO(SP)", "AJK: Pn. Julini Kunggu — PT/PO(SP)", "AJK: Pn. Ainie Ahgau — PT/PO(SP)"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "15. Jawatankuasa PA Sistem / Teknikal", name: "En. Ardee Makibin", description: "Pengerusi • FA", color: "amber", details: ["Tim. Peng.: En. Muhd Khairul Anam Bin Mahmud — FA", "AJK: En. Alipar Bin Kampong — FA"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "16. Jawatankuasa Penyediaan Teks Ucapan", name: "Dr. Mohd Azizuan Abdullah", description: "Pengerusi • SISC+ (SPb)", color: "blue", details: ["Tim. Peng.: Pn. Barbara @ Nur Aisyah Anak Rantai — SISC+ (SPb)"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "17. Jawatankuasa Penyediaan Teks & Bacaan Doa", name: "Ustaz Zaidi Kabil", description: "Pengerusi • PPPD (SPB)", color: "emerald" },
+        { section: "JAWATANKUASA PELAKSANA", title: "18. Jawatankuasa Pendaftaran", name: "En. Julian Kadim", description: "Pengerusi • PPPD (SPS)", color: "orange", details: ["Pn. Lasni Elui — PT/PO(SP)", "Pn. Jane Leslie Masaling — PT/PO(SP)", "Pn. Mariati binti Amat — PT/PO(SP)", "En. Princesonlee — PT/PO(SP)"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "19. Jawatankuasa Juruacara", name: "Ustaz Ikmal", description: "PPPS (SK Popok)", color: "purple", details: ["Pn. Hartini binti Maklin — PPPS (SK KM II)"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "20. Jawatankuasa Pengurusan Kewangan", name: "En. Halim Hj. Bidin@Bibin", description: "Pengerusi • PPD", color: "pink", details: ["Tim. Peng.: En. Rusdih bin Linah — TPPD (SPS)", "AJK: En. Khairuddin bin Hj. Jamal — TPPD (SPD)", "AJK: En. Jaikob Tunding — TPPD (SPb)", "AJK: En. Said Ambar — TPPD (SPM)", "AJK: En. Mohd Khuraini bin Khuzaimah — SIP+ (SPS)", "AJK: En. Ulik Likud — (SPSK)", "AJK: En. Alan Chong Shu Soon — PEN. AKAUNTAN (SP)"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "21. Jawatankuasa Gimik Pelancaran", name: "En. Maiter Enroy", description: "Pengerusi • FT", color: "cyan", details: ["Tim. Peng.: En. Pam Kim Lung — FT"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "22. Jawatankuasa Bacaan Ikrar", name: "En. Sanaleh bin Hj. Daud", description: "Pengerusi • Peng PPSMS Daerah", color: "amber", details: ["Tim. Peng.: En. Fowzi bin Boman — Peng PGBM", "AJK: Semua Pengetua dan Guru Besar"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "23. Jawatankuasa LO Tokoh Kepimpinan & Tokoh Guru", name: "En. Azhar bin Abd Rasid", description: "Pengerusi • Guru Besar SK Ranau", color: "blue", details: ["Tim. Peng.: En. Rajiklee Majalis — Guru Besar SK Kota Marudu II", "Tim. Peng 2: En"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "24. Jawatankuasa Biodata Tokoh Guru dan Tokoh Kepimpinan", name: "En. Josil Kidutah", description: "Pengerusi • SISC+ (SPb)", color: "emerald", details: ["Tim. Peng.: Tn. Hj Dr. Haidi Entoh — PPPD (SPD)", "AJK: Dr. Mohd. Azizuan Abdullah — SISC+ (SPb)", "AJK: Pn. Sylvia Miting Pakoi — SISC+ (SPb)", "AJK: Tn. Hj Aminulrashid Fauzi Rahman — PPPD (SPb)"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "25. Jawatankuasa Persembahan", name: "En. Norbert Michael Ligin", description: "Pengerusi • PPPD (SPb)", color: "orange", details: ["AJK: Pn Calorane binti Jaulin — PPPD(SPb)"] },
+        { section: "JAWATANKUASA PELAKSANA", title: "26. Jawatankuasa Koir Hari Guru [KAMI GURU MALAYSIA]", name: "En. Sanaleh bin Hj. Daud", description: "Pengerusi • Pengetua SMK Salaping", color: "purple" },
+        { section: "JAWATANKUASA PELAKSANA", title: "27. Jawatankuasa Kebersihan", name: "Semua staf SPS PPDKM", description: "Pekerja Pembersihan PPDKM", color: "pink" },
+        { section: "JAWATANKUASA PELAKSANA", title: "28. Jawatankuasa Pengurus Penerima Anugerah", name: "En. Suhairi bin Mail", description: "Pengerusi • FT", color: "cyan", details: ["AJK: Staf Intern PPD"] }
       ];
 
       const awardData = [
@@ -991,18 +1085,37 @@ button, a { touch-action: manipulation; }
       }
 
       function createCommittee() {
-        document.getElementById("committee-grid").innerHTML = committeeData
-          .map((member) => {
-            const colors = colorClasses[member.color];
-            return `
-              <div class="premium-card fade-up rounded-2xl border-t-4 ${colors.top} bg-white p-5 dark:bg-gray-800">
-                <h3 class="text-[19px] font-bold text-gray-900 dark:text-white">${member.name}</h3>
-                <p class="mt-1 text-xs font-semibold ${colors.role}">${member.role}</p>
-                <p class="mt-2 text-sm text-gray-500">${member.description}</p>
-              </div>
-            `;
-          })
-          .join("");
+        const grid = document.getElementById("committee-grid");
+        let html = "";
+        let currentSection = "";
+        committeeData.forEach((member) => {
+          if (member.section !== currentSection) {
+            currentSection = member.section;
+            html += `
+              <div class="col-span-full mt-4 first:mt-0">
+                <div class="flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 dark:border-amber-900/40 dark:bg-amber-900/15">
+                  <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500 text-white shadow-lg">
+                    <i data-lucide="${currentSection === 'JAWATANKUASA INDUK' ? 'landmark' : 'clipboard-list'}" class="h-5 w-5"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-display text-lg font-black text-amber-900 dark:text-amber-200">${currentSection}</h3>
+                    <p class="text-xs text-amber-700/80 dark:text-amber-300/70">${currentSection === 'JAWATANKUASA INDUK' ? 'Struktur kepimpinan dan jawatankuasa induk MAPeNS 2026' : 'Senarai jawatankuasa dan tugasan pelaksanaan MAPeNS 2026'}</p>
+                  </div>
+                </div>
+              </div>`;
+          }
+          const colors = colorClasses[member.color] || colorClasses.amber;
+          const details = member.details?.length ? `<div class="mt-3 space-y-1 border-t border-gray-100 pt-3 text-xs leading-relaxed text-gray-500 dark:border-gray-700 dark:text-gray-400">${member.details.map(d => `<p>• ${d}</p>`).join('')}</div>` : '';
+          html += `
+            <div class="premium-card fade-up rounded-2xl border-t-4 ${colors.top} bg-white p-5 dark:bg-gray-800">
+              <p class="text-[11px] font-bold uppercase tracking-wider ${colors.role}">${member.title}</p>
+              <h3 class="mt-2 text-[18px] font-bold text-gray-900 dark:text-white">${member.name}</h3>
+              <p class="mt-1 text-sm font-medium text-gray-600 dark:text-gray-300">${member.description}</p>
+              ${details}
+            </div>`;
+        });
+        grid.innerHTML = html;
+        lucide.createIcons();
       }
 
       function createAwards() {
