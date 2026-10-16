@@ -788,6 +788,20 @@ button, a { touch-action: manipulation; }
             <div id="school-graph-bars" class="space-y-3"></div>
           </div>
 
+          <!-- ANALISIS KATEGORI PENCALONAN -->
+          <div id="category-nomination-analysis" class="mt-8 rounded-2xl border border-blue-100 bg-white p-6 shadow-lg dark:border-blue-900/30 dark:bg-slate-800">
+            <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wider text-blue-600">Analisis Pencalonan</p>
+                <h3 class="mt-1 text-xl font-black text-slate-900 dark:text-white">Analisis Mengikut Kategori Anugerah</h3>
+                <p id="category-graph-status" class="mt-1 text-xs text-slate-500 dark:text-slate-400">Memuatkan data kategori...</p>
+              </div>
+              <button id="category-graph-refresh" type="button" class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 px-4 py-2 text-xs font-bold text-white shadow transition hover:-translate-y-0.5">↻ KEMAS KINI</button>
+            </div>
+            <div id="category-analysis-summary" class="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-3"></div>
+            <div id="category-graph-bars" class="space-y-4"></div>
+          </div>
+
         </div>
       </section>
 
@@ -1643,6 +1657,107 @@ function closeFolder(){
 
       document.getElementById("school-graph-refresh")?.addEventListener("click", loadSchoolNominationGraph);
       loadSchoolNominationGraph();
+
+      /* ===== ANALISIS KATEGORI PENCALONAN ===== */
+      function loadCategoryNominationAnalysis() {
+        const status = document.getElementById("category-graph-status");
+        if (!status) return;
+        status.textContent = "Memuatkan data kategori...";
+        const callbackName = "mapensCategoryCallback_" + Date.now();
+        window[callbackName] = function(data) {
+          try { renderCategoryNominationAnalysis(data); }
+          finally {
+            delete window[callbackName];
+            document.getElementById("mapens-category-jsonp")?.remove();
+          }
+        };
+        const script = document.createElement("script");
+        script.id = "mapens-category-jsonp";
+        script.src = "https://docs.google.com/spreadsheets/d/" + MAPENS_GRAPH_SHEET_ID +
+          "/gviz/tq?tqx=responseHandler:" + callbackName + "&tq=" + encodeURIComponent("select *");
+        script.onerror = function() {
+          status.textContent = "Analisis kategori gagal dimuatkan. Pastikan Google Sheet boleh diakses.";
+          delete window[callbackName];
+          script.remove();
+        };
+        document.head.appendChild(script);
+      }
+
+      function renderCategoryNominationAnalysis(data) {
+        const status = document.getElementById("category-graph-status");
+        const bars = document.getElementById("category-graph-bars");
+        const summary = document.getElementById("category-analysis-summary");
+        try {
+          const table = data && data.table;
+          const columns = table && table.cols ? table.cols : [];
+          const rows = table && table.rows ? table.rows : [];
+          const headers = columns.map(c => String(c.label || c.id || "").toLowerCase()
+            .replace(/[_./-]+/g, " ").replace(/\s+/g, " ").trim());
+          const categoryIndex = headers.findIndex(h =>
+            h === "kategori" || h.includes("kategori anugerah") ||
+            h.includes("kategori pencalonan") || h === "anugerah" || h.includes("jenis anugerah"));
+          if (categoryIndex < 0) throw new Error("Lajur kategori tidak ditemui.");
+
+          const counts = {};
+          rows.forEach(row => {
+            const cell = row.c && row.c[categoryIndex];
+            const category = String(cell && cell.v != null ? cell.v : "").trim().replace(/\s+/g, " ");
+            if (category && category !== "-" && category.toLowerCase() !== "kategori") {
+              counts[category] = (counts[category] || 0) + 1;
+            }
+          });
+          const entries = Object.entries(counts).sort((a,b) => b[1]-a[1] || a[0].localeCompare(b[0],"ms"));
+          bars.innerHTML = "";
+          summary.innerHTML = "";
+          if (!entries.length) {
+            status.textContent = "Tiada rekod kategori pencalonan untuk dipaparkan.";
+            return;
+          }
+          const total = entries.reduce((sum, item) => sum + item[1], 0);
+          const max = entries[0][1];
+          [
+            ["Jumlah Pencalonan", total],
+            ["Kategori Aktif", entries.length],
+            ["Kategori Tertinggi", entries[0][0]]
+          ].forEach(([label, value]) => {
+            const card = document.createElement("div");
+            card.className = "rounded-xl bg-slate-50 p-4 dark:bg-slate-900";
+            const l = document.createElement("p");
+            l.className = "text-[10px] font-bold uppercase tracking-wider text-slate-500";
+            l.textContent = label;
+            const v = document.createElement("p");
+            v.className = "mt-1 break-words text-lg font-black text-blue-600 dark:text-amber-400";
+            v.textContent = value;
+            card.append(l,v); summary.appendChild(card);
+          });
+          entries.forEach(([category,count]) => {
+            const wrap = document.createElement("div");
+            wrap.className = "space-y-2";
+            const head = document.createElement("div");
+            head.className = "flex items-start justify-between gap-3 text-sm";
+            const name = document.createElement("span");
+            name.className = "font-semibold text-slate-700 dark:text-slate-200";
+            name.textContent = category;
+            const num = document.createElement("span");
+            num.className = "shrink-0 font-bold text-slate-600 dark:text-slate-300";
+            num.textContent = count + " (" + Math.round(count/total*100) + "%)";
+            head.append(name,num);
+            const track = document.createElement("div");
+            track.className = "h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700";
+            const fill = document.createElement("div");
+            fill.className = "h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500";
+            fill.style.width = Math.max(3,count/max*100) + "%";
+            track.appendChild(fill); wrap.append(head,track); bars.appendChild(wrap);
+          });
+          status.textContent = "Pecahan berdasarkan kategori daripada rekod Google Sheet • Jumlah: " + total + " pencalonan.";
+        } catch (error) {
+          console.error("Analisis kategori MAPeNS:", error);
+          status.textContent = "Lajur kategori tidak ditemui atau data Google Sheet tidak dapat dibaca. Semak tajuk lajur kategori dalam helaian.";
+        }
+      }
+
+      document.getElementById("category-graph-refresh")?.addEventListener("click", loadCategoryNominationAnalysis);
+      loadCategoryNominationAnalysis();
 
       document.getElementById("status-search-btn").addEventListener("click", semakStatusMapens);
       document.getElementById("status-search").addEventListener("keydown", e => {
